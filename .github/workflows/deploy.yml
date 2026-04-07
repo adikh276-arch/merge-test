@@ -34,5 +34,6 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             NEON_API_KEY=${{ secrets.NEON_API_KEY }}
           secrets: |
-            "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+
 

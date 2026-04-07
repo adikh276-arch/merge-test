@@ -31,6 +31,12 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # Increase memory for build
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
+ARG DATABASE_URL
+ARG NEON_API_KEY
+ENV DATABASE_URL=$DATABASE_URL
+ENV NEON_API_KEY=$NEON_API_KEY
+
+
 RUN \
   if [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
   elif [ -f package-lock.json ]; then npm run build; \
