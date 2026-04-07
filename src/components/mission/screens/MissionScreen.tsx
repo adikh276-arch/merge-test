@@ -39,9 +39,10 @@ const MissionScreen = ({ data, onEdit, onHome, onChange }: MissionScreenProps) =
       }
 
       await query(
-        "INSERT INTO missions (user_id, statement, values) VALUES ($1, $2, $3::jsonb)",
-        [userId, statement, JSON.stringify(data.values)]
+        "INSERT INTO missions (user_id, statement, values) VALUES ($1, $2, $3)",
+        [userId, statement, data.values]
       );
+
 
 
 

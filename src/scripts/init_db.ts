@@ -34,7 +34,7 @@ const setup = async () => {
         id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
         user_id BIGINT REFERENCES core.users(id) ON DELETE CASCADE,
         statement TEXT,
-        values JSONB,
+        values TEXT[],
         created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
       )
     `;
@@ -43,13 +43,14 @@ const setup = async () => {
     console.log("Creating brain_dump.sessions table...");
     await sql`
       CREATE TABLE IF NOT EXISTS brain_dump.sessions (
-        id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         user_id BIGINT REFERENCES core.users(id) ON DELETE CASCADE,
         thoughts JSONB,
         reflection TEXT,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
       )
     `;
+
 
 
     console.log("Database initialized successfully.");

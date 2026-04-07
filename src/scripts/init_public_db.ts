@@ -29,7 +29,7 @@ const setup = async () => {
         id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
         user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
         statement TEXT,
-        values JSONB,
+        values TEXT[],
         created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
       )
     `;
@@ -37,13 +37,14 @@ const setup = async () => {
     console.log("Creating sessions table...");
     await sql`
       CREATE TABLE IF NOT EXISTS sessions (
-        id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
         thoughts JSONB,
         reflection TEXT,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
       )
     `;
+
 
     console.log("Public tables initialized successfully.");
   } catch (err) {
