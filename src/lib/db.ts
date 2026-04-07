@@ -24,7 +24,8 @@ export async function executeQuery<T>(schema: "mission_statement" | "brain_dump"
     .replace(/JOIN (\w+)/gi, `JOIN ${schema}.$1`);
 
 
-  return (sql as any)(schemaQualifiedQuery, params) as unknown as T[];
+  return (sql as any).query(schemaQualifiedQuery, params) as unknown as T[];
+
 
 }
 
