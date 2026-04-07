@@ -24,7 +24,7 @@ const HistoryScreen = ({ onBack }: HistoryScreenProps) => {
     useEffect(() => {
         const fetchMissions = async () => {
             try {
-                const userId = sessionStorage.getItem("user_id");
+                const userId = sessionStorage.getItem("therapy_user_id");
                 if (!userId) return;
 
                 const results = await query(
@@ -41,7 +41,7 @@ const HistoryScreen = ({ onBack }: HistoryScreenProps) => {
 
     const handleDelete = async (id: string) => {
         try {
-            const userId = sessionStorage.getItem("user_id");
+            const userId = sessionStorage.getItem("therapy_user_id");
             if (!userId) return;
 
             setMissions((prev) => prev.filter((m) => m.id !== id));

@@ -27,8 +27,9 @@ const BrainDumpApp = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setUserId(sessionStorage.getItem("user_id"));
+      setUserId(sessionStorage.getItem("therapy_user_id"));
     }
+
   }, []);
 
 

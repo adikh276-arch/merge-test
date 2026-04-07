@@ -33,7 +33,8 @@ const MissionScreen = ({ data, onEdit, onHome, onChange }: MissionScreenProps) =
 
   const handleSave = async () => {
     try {
-      const userId = sessionStorage.getItem("user_id");
+      const userId = sessionStorage.getItem("therapy_user_id");
+
       if (!userId) {
         throw new Error("User not authenticated");
       }

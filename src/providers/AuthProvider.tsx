@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const resolveAuth = async () => {
-      const storedUserId = sessionStorage.getItem("user_id");
+      const storedUserId = sessionStorage.getItem("therapy_user_id");
 
       if (storedUserId) {
         setIsAuthResolved(true);
@@ -29,10 +29,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         sessionStorage.setItem("redirect_path", pathname);
         // Step B: Redirect to auth
         window.location.href = `https://web.mantracare.com/app/therapy?redirect_url=${encodeURIComponent(window.location.href)}`;
-
-        // Note: Plan says web.mantracare.com/app/therapy but typically it's a token endpoint.
-        // I'll stick to what the plan implies or the previous AuthGuard logic.
-        // Actually, let's follow the plan EXACTLY for path.
         return;
       }
 
@@ -54,11 +50,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
         if (data.user_info?.id || data.user_id) {
           const userId = data.user_info?.id || data.user_id;
-          sessionStorage.setItem("user_id", userId.toString());
+          sessionStorage.setItem("therapy_user_id", userId.toString());
 
           // Clean URL and Restore Path
           const savedPath = sessionStorage.getItem("redirect_path") || pathname;
           sessionStorage.removeItem("redirect_path");
+
 
           // Update URL without token
           const url = new URL(window.location.href);
