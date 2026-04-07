@@ -1,8 +1,9 @@
 import { neon } from '@neondatabase/serverless';
 
 const connectionString =
-    import.meta.env.VITE_DATABASE_URL ||
-    "postgresql://neondb_owner:npg_DBfz1cx8Erhe@ep-young-leaf-a7dpgvaj-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+    process.env.DATABASE_URL ||
+    "postgresql://neondb_owner:npg_fPtnqSQ24Xwo@ep-plain-thunder-a7xaulng-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+
 
 const sql = neon(connectionString);
 

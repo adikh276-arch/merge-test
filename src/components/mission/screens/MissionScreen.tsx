@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import ScreenWrapper from "@/components/mission/ScreenWrapper";
 import MissionButton from "@/components/mission/MissionButton";
-import { MissionData } from "@/pages/Index";
+import { MissionData } from "@/types/mission";
+
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import type { SavedMission } from "@/components/mission/screens/HistoryScreen";

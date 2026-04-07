@@ -7,11 +7,8 @@ import ReflectionScreen from "@/components/mission/screens/ReflectionScreen";
 import MissionScreen from "@/components/mission/screens/MissionScreen";
 import HistoryScreen from "@/components/mission/screens/HistoryScreen";
 
-export interface MissionData {
-  values: string[];
-  beingSomeoneWho: string;
-  lifeFeelMore: string;
-}
+import { MissionData } from "@/types/mission";
+
 
 export default function MissionStatementPage() {
   const [screen, setScreen] = useState(0);

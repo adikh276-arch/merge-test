@@ -11,10 +11,10 @@ WORKDIR /app
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
   if [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
+  elif [ -f package-lock.json ]; then npm ci --legacy-peer-deps; \
+  else npm install --legacy-peer-deps; \
   fi
+
 
 
 # Rebuild the source code only when needed

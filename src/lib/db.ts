@@ -19,7 +19,8 @@ export async function executeQuery<T>(schema: "mission_statement" | "brain_dump"
                                      .replace(/UPDATE (\w+)/gi, `UPDATE ${schema}.$1`)
                                      .replace(/DELETE FROM (\w+)/gi, `DELETE FROM ${schema}.$1`);
 
-  return sql(schemaQualifiedQuery, params) as unknown as T[];
+  return (sql as any)(schemaQualifiedQuery, params) as unknown as T[];
+
 }
 
 export default sql;

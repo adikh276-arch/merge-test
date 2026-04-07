@@ -23,12 +23,20 @@ const BrainDumpApp = () => {
   const [showSaved, setShowSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userId = sessionStorage.getItem("user_id");
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUserId(sessionStorage.getItem("user_id"));
+    }
+  }, []);
+
 
   // Load and initialize user
   useEffect(() => {
     const init = async () => {
       if (!userId) return;
+
 
       try {
         setIsLoading(true);
