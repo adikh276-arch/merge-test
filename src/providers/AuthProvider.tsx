@@ -28,7 +28,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         // Step A: Save current path
         sessionStorage.setItem("redirect_path", pathname);
         // Step B: Redirect to auth
-        window.location.href = `https://web.mantracare.com/token?redirect_url=${encodeURIComponent(window.location.href)}`;
+        window.location.href = `https://web.mantracare.com/app/therapy?redirect_url=${encodeURIComponent(window.location.href)}`;
+
         // Note: Plan says web.mantracare.com/app/therapy but typically it's a token endpoint.
         // I'll stick to what the plan implies or the previous AuthGuard logic.
         // Actually, let's follow the plan EXACTLY for path.
@@ -75,7 +76,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       } catch (err) {
         console.error("Auth error:", err);
         // Fallback or retry
-        window.location.href = "https://mantracare.com/token";
+        window.location.href = "https://web.mantracare.com/app/therapy";
+
       }
     };
 
