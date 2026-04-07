@@ -1,10 +1,12 @@
 import { neon } from "@neondatabase/serverless";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is not set");
-}
+const connectionString = 
+  process.env.NEXT_PUBLIC_DATABASE_URL || 
+  process.env.DATABASE_URL || 
+  "postgresql://neondb_owner:npg_fPtnqSQ24Xwo@ep-plain-thunder-a7xaulng-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
 
-const sql = neon(process.env.DATABASE_URL);
+const sql = neon(connectionString);
+
 
 /**
  * Executes a query with a specific schema search path.
