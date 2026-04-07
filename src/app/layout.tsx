@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@/i18n/config";
 import { AuthProvider } from "@/providers/AuthProvider";
+import { I18nProvider } from "@/providers/I18nProvider";
 import { Suspense } from "react";
+
 
 
 const geistSans = Geist({
@@ -33,9 +35,12 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Suspense fallback={null}>
-          <AuthProvider>{children}</AuthProvider>
+          <I18nProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </I18nProvider>
         </Suspense>
       </body>
+
 
     </html>
   );
