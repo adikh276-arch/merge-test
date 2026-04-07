@@ -40,8 +40,9 @@ const MissionScreen = ({ data, onEdit, onHome, onChange }: MissionScreenProps) =
 
       await query(
         "INSERT INTO missions (user_id, statement, values) VALUES ($1, $2, $3)",
-        [userId, statement, data.values]
+        [userId, statement, JSON.stringify(data.values)]
       );
+
 
       toast.success(t("mission.mission_saved"), {
         style: {

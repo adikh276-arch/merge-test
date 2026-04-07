@@ -25,29 +25,17 @@ export async function fetchUserSessions(userId: string | number) {
     const id = typeof userId === 'string' ? parseInt(userId, 10) : userId;
 
     try {
-        const sessions = await dbQuery(
-            'SELECT * FROM sessions WHERE user_id = $1 ORDER BY date DESC',
+        const result = await dbQuery(
+            'SELECT * FROM sessions WHERE user_id = $1 ORDER BY created_at DESC',
             [id]
         );
 
-        const sessionsWithThoughts = [];
-
-        for (const session of (sessions as any[])) {
-            const thoughts = await dbQuery(
-                'SELECT local_id as id, text, bucket FROM thoughts WHERE session_id = $1 AND user_id = $2',
-                [session.id, id]
-            );
-            sessionsWithThoughts.push({
-                ...session,
-                thoughts: thoughts
-            });
-        }
-
-        return sessionsWithThoughts;
+        return result.rows || [];
     } catch (err) {
         console.error('Failed to fetch user sessions:', err);
         throw err;
     }
+
 }
 
 /**
@@ -59,19 +47,12 @@ export async function saveSession(userId: string | number, session: any) {
     const id = typeof userId === 'string' ? parseInt(userId, 10) : userId;
 
     try {
-        // 1. Insert session
+        // 1. Insert session (with stringified thoughts JSONB)
         await dbQuery(
-            'INSERT INTO sessions (id, user_id, date, reflection) VALUES ($1, $2, $3, $4)',
-            [session.id, id, session.date, session.reflection]
+            'INSERT INTO sessions (id, user_id, thoughts, reflection) VALUES ($1, $2, $3, $4)',
+            [session.id, id, JSON.stringify(session.thoughts), session.reflection]
         );
 
-        // 2. Insert thoughts
-        for (const thought of session.thoughts) {
-            await dbQuery(
-                'INSERT INTO thoughts (local_id, session_id, user_id, text, bucket) VALUES ($1, $2, $3, $4, $5)',
-                [thought.id, session.id, id, thought.text, thought.bucket]
-            );
-        }
     } catch (err) {
         console.error('Failed to save session:', err);
         throw err;
