@@ -31,3 +31,8 @@ jobs:
           tags: bunker.mantracare.com/lovable/therapy:latest
           build-args: |
             NODE_OPTIONS=--max-old-space-size=4096
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            NEON_API_KEY=${{ secrets.NEON_API_KEY }}
+          secrets: |
+            "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+
