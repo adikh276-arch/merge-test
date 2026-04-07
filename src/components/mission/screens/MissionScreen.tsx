@@ -54,10 +54,14 @@ const MissionScreen = ({ data, onEdit, onHome, onChange }: MissionScreenProps) =
           border: "1px solid hsl(280, 15%, 82%)",
         },
       });
+
+      // Redirect home after brief delay
+      setTimeout(() => onHome(), 1000);
     } catch (error) {
       console.error(error);
       toast.error("Failed to save statement.");
     }
+
   };
 
   return (
